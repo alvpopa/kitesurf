@@ -1,10 +1,12 @@
 import React from 'react';
 import Login from './containers/Login';
+import AuthContextProvider from './contexts/AuthContext';
+
 const App = () => {
   return (
-    <div className="app">
+    <AuthContextProvider>
       <Login />
-    </div>
+    </AuthContextProvider>
   );
 };
 

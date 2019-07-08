@@ -1,3 +1,5 @@
+import { DEFAULT_USER_AUTH } from './constants';
+
 export const apiRequest = async (
   url,
   method = 'POST',
@@ -15,4 +17,9 @@ export const apiRequest = async (
   });
 
   return await response.json();
+};
+
+export const getUserFromLocalStorage = () => {
+  const user = window.localStorage.getItem('UserAuth');
+  return user ? JSON.parse(user) : DEFAULT_USER_AUTH;
 };
