@@ -10,9 +10,7 @@ const Login = () => (
     <Formik
       initialValues={{ email: '', password: '' }}
       onSubmit={async (values, { setSubmitting }) => {
-        console.log(REACT_APP_LOG_IN);
-        const { email, password } = values;
-        const bodyParams = { email, password };
+        const bodyParams = { ...values };
         const resp = await apiRequest(REACT_APP_LOG_IN, 'POST', bodyParams);
         setSubmitting(false);
         alert(JSON.stringify(resp));
@@ -70,12 +68,18 @@ const Login = () => (
                   : 'text-input'
               }
             />
-            {errors && touched && (
-              <div className="input-feedback">{errors.email}</div>
-            )}
-            {errors.password && touched.password && (
-              <div className="input-feedback">{errors.password}</div>
-            )}
+
+            {errors &&
+              touched &&
+              Object.entries(errors).map(([key, value]) => {
+                return (
+                  touched[key] && (
+                    <div key={key} className="input-feedback">
+                      {value}
+                    </div>
+                  )
+                );
+              })}
 
             <div className="buttonWrapper">
               <button type="submit" disabled={isSubmitting}>
