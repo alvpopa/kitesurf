@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
 import { apiRequest } from '../utils/helpers';
@@ -42,28 +42,20 @@ const Login = () => {
         })}
       >
         {props => {
-          const {
-            values,
-            touched,
-            errors,
-            isSubmitting,
-            handleChange,
-            handleBlur,
-            handleSubmit
-          } = props;
+          const { touched, errors, isSubmitting, handleSubmit } = props;
 
           return (
             <form onSubmit={handleSubmit}>
               <label htmlFor="email" style={{ display: 'block' }}>
                 Email
               </label>
-              <input
+              {errors.email && touched.email && (
+                <div className="input-feedback">{errors.email}</div>
+              )}
+              <Field
                 id="email"
+                name="email"
                 placeholder="Enter your email"
-                type="text"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
                 className={
                   errors.email && touched.email
                     ? 'text-input error'
@@ -73,31 +65,20 @@ const Login = () => {
               <label htmlFor="password" style={{ display: 'block' }}>
                 Password
               </label>
-              <input
+              {errors.password && touched.password && (
+                <div className="input-feedback">{errors.password}</div>
+              )}
+              <Field
                 id="password"
+                name="password"
                 placeholder="Enter your password"
                 type="password"
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
                 className={
                   errors.password && touched.password
                     ? 'text-input error'
                     : 'text-input'
                 }
               />
-
-              {errors &&
-                touched &&
-                Object.entries(errors).map(([key, value]) => {
-                  return (
-                    touched[key] && (
-                      <div key={key} className="input-feedback">
-                        {value}
-                      </div>
-                    )
-                  );
-                })}
 
               <div className="buttonWrapper">
                 <button type="submit" disabled={isSubmitting}>
