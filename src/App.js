@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useRoutes, A, navigate } from 'hookrouter';
 
-import Login from './containers/Login';
-import Signup from './containers/Signup';
+import { Login, Signup } from './containers';
 import AuthContextProvider from './contexts/AuthContext';
 import ApiService from './utils/ApiService';
+import Container from './components/Container';
 
 const client = new ApiService();
 
@@ -35,12 +35,21 @@ const App = () => {
 
   return (
     <AuthContextProvider client={client}>
-      {!isLoggedIn && <A href="/login">Login</A>}
-      <br />
-      {!isLoggedIn && <A href="/signup">Signup</A>}
-      <br />
-      {isLoggedIn && <A href="/dashboard">Dashboard</A>}
-      {routeResult}
+      <Container>
+        {!isLoggedIn && (
+          <A href="/login" style={{ width: '30px' }}>
+            Login
+          </A>
+        )}
+        <br />
+        {!isLoggedIn && (
+          <A href="/signup" style={{ width: '30px' }}>
+            Signup
+          </A>
+        )}
+        <br />
+        {routeResult}
+      </Container>
     </AuthContextProvider>
   );
 };

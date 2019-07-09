@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 
 import { apiRequest } from '../utils/helpers';
 import { authContext } from '../contexts/AuthContext';
+import Button from '../components/Button';
+
 const { REACT_APP_SIGN_UP } = process.env;
 
 const Signup = ({ setLoggedIn }) => {
@@ -107,9 +109,9 @@ const Signup = ({ setLoggedIn }) => {
               />
 
               <div className="buttonWrapper">
-                <button type="submit" disabled={isSubmitting}>
+                <Button type="submit" disabled={isSubmitting}>
                   Signup
-                </button>
+                </Button>
                 {error && <div className="input-feedback">{error}</div>}
               </div>
             </form>

@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 
 import { apiRequest } from '../utils/helpers';
 import { authContext } from '../contexts/AuthContext';
+import Button from '../components/Button';
 const { REACT_APP_LOG_IN } = process.env;
 
 const Login = ({ setLoggedIn }) => {
@@ -54,12 +55,17 @@ const Login = ({ setLoggedIn }) => {
 
           return (
             <form onSubmit={handleSubmit}>
-              <label htmlFor="email" style={{ display: 'block' }}>
-                Email
-              </label>
-              {errors.email && touched.email && (
-                <div className="input-feedback">{errors.email}</div>
-              )}
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <label htmlFor="email">Email</label>
+                {errors.email && touched.email && (
+                  <span className="input-feedback">{errors.email}</span>
+                )}
+              </div>
               <Field
                 id="email"
                 name="email"
@@ -70,12 +76,17 @@ const Login = ({ setLoggedIn }) => {
                     : 'text-input'
                 }
               />
-              <label htmlFor="password" style={{ display: 'block' }}>
-                Password
-              </label>
-              {errors.password && touched.password && (
-                <div className="input-feedback">{errors.password}</div>
-              )}
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <label htmlFor="password">Password</label>
+                {errors.password && touched.password && (
+                  <span className="input-feedback">{errors.password}</span>
+                )}
+              </div>
               <Field
                 id="password"
                 name="password"
@@ -89,9 +100,7 @@ const Login = ({ setLoggedIn }) => {
               />
 
               <div className="buttonWrapper">
-                <button type="submit" disabled={isSubmitting}>
-                  Login
-                </button>
+                <Button disabled={isSubmitting}>Login</Button>
                 {error && <div className="input-feedback">{error}</div>}
               </div>
             </form>
