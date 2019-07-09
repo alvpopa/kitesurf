@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import useAuth from '../utils/hooks/useAuth';
 import { DEFAULT_USER_AUTH } from '../utils/constants';
-import { getUserFromLocalStorage } from '../utils/helpers';
 
 export const authContext = React.createContext({
   auth: DEFAULT_USER_AUTH,
@@ -12,9 +11,9 @@ export const authContext = React.createContext({
 
 const { Provider } = authContext;
 
-const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children, client }) => {
   const [auth, setAuthStatus, setUnauthStatus] = useAuth(
-    getUserFromLocalStorage()
+    client.getUserFromLocalStorage()
   );
 
   return (
