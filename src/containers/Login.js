@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
@@ -6,9 +6,16 @@ import { apiRequest } from '../utils/helpers';
 import { authContext } from '../contexts/AuthContext';
 const { REACT_APP_LOG_IN } = process.env;
 
-const Login = () => {
+const Login = ({ setLoggedIn }) => {
   const auth = useContext(authContext);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setError('');
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [error]);
 
   const loginHandler = async (values, { setSubmitting }) => {
     const bodyParams = { ...values };
@@ -23,6 +30,7 @@ const Login = () => {
     } else {
       const user = { ...result };
       auth.setAuthStatus(user);
+      setLoggedIn(true);
     }
   };
 

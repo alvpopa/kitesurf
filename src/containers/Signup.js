@@ -6,7 +6,7 @@ import { apiRequest } from '../utils/helpers';
 import { authContext } from '../contexts/AuthContext';
 const { REACT_APP_SIGN_UP } = process.env;
 
-const Signup = () => {
+const Signup = ({ setLoggedIn }) => {
   const auth = useContext(authContext);
   const [error, setError] = useState('');
 
@@ -18,11 +18,11 @@ const Signup = () => {
     const { error, result } = resp;
 
     if (error) {
-      setError(error.message);
-      return;
+      return setError(error.message);
     } else {
       const user = { ...result };
       auth.setAuthStatus(user);
+      setLoggedIn(true);
     }
   };
 
