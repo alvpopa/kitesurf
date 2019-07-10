@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useRoutes, A, navigate } from 'hookrouter';
+import { useRoutes, navigate } from 'hookrouter';
 
 import { Login, NotFound, Signup } from './containers';
 import AuthContextProvider from './contexts/AuthContext';
 import ApiService from './utils/ApiService';
-import Container from './components/Container';
+import { Header, Link, RootContainer } from './components';
 
 const client = new ApiService();
 
@@ -13,9 +13,9 @@ const App = () => {
 
   const routes = {
     '/': () => (
-      <Container>
+      <RootContainer>
         <h1>Homepage</h1>
-      </Container>
+      </RootContainer>
     ),
     '/login': () => {
       return isLoggedIn ? (
@@ -40,26 +40,19 @@ const App = () => {
 
   return (
     <AuthContextProvider client={client}>
-      <Container>
-        {!isLoggedIn && (
-          <>
-            <A href="/login" style={{ width: '30px' }}>
-              Login
-            </A>
-            <br />
-            <A href="/signup" style={{ width: '30px' }}>
-              Signup
-            </A>
-          </>
-        )}
-        {isLoggedIn && (
-          <A href="/dashboard" style={{ width: '30px' }}>
-            Dashboard
-          </A>
-        )}
-        <br />
+      <RootContainer>
+        <Header>
+          <Link href="/">Homepage</Link>
+          {!isLoggedIn && (
+            <>
+              <Link href="/login">Login</Link>
+              <Link href="/signup">Signup</Link>
+            </>
+          )}
+          {isLoggedIn && <Link href="/dashboard">Dashboard</Link>}
+        </Header>
         {routeResult || <NotFound />}
-      </Container>
+      </RootContainer>
     </AuthContextProvider>
   );
 };

@@ -1,10 +1,18 @@
 import React, { useContext, useState } from 'react';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { apiRequest } from '../utils/helpers';
 import { authContext } from '../contexts/AuthContext';
-import Button from '../components/Button';
+import {
+  Button,
+  FormContainer,
+  FormError,
+  Heading,
+  InputField,
+  InputFieldHeader,
+  Label
+} from '../components';
 
 const { REACT_APP_SIGN_UP } = process.env;
 
@@ -29,8 +37,8 @@ const Signup = ({ setLoggedIn }) => {
   };
 
   return (
-    <div className="app">
-      <h1>SIGNUP</h1>
+    <FormContainer>
+      <Heading>SIGNUP</Heading>
       <Formik
         initialValues={{ email: '', password: '', passwordConfirmation: '' }}
         onSubmit={signupHandler}
@@ -52,13 +60,13 @@ const Signup = ({ setLoggedIn }) => {
 
           return (
             <form onSubmit={handleSubmit}>
-              <label htmlFor="email" style={{ display: 'block' }}>
-                Email
-              </label>
-              {errors.email && touched.email && (
-                <div className="input-feedback">{errors.email}</div>
-              )}
-              <Field
+              <InputFieldHeader>
+                <Label htmlFor="email">Email</Label>
+                {errors.email && touched.email && (
+                  <FormError>{errors.email}</FormError>
+                )}
+              </InputFieldHeader>
+              <InputField
                 id="email"
                 name="email"
                 placeholder="Enter your email"
@@ -68,13 +76,13 @@ const Signup = ({ setLoggedIn }) => {
                     : 'text-input'
                 }
               />
-              <label htmlFor="password" style={{ display: 'block' }}>
-                Password
-              </label>
-              {errors.password && touched.password && (
-                <div className="input-feedback">{errors.password}</div>
-              )}
-              <Field
+              <InputFieldHeader>
+                <Label htmlFor="password">Password</Label>
+                {errors.password && touched.password && (
+                  <FormError>{errors.password}</FormError>
+                )}
+              </InputFieldHeader>
+              <InputField
                 id="password"
                 name="password"
                 placeholder="Enter your password"
@@ -85,18 +93,16 @@ const Signup = ({ setLoggedIn }) => {
                     : 'text-input'
                 }
               />
-              <label
-                htmlFor="passwordConfirmation"
-                style={{ display: 'block' }}
-              >
-                Password confirmation
-              </label>
-              {errors.passwordConfirmation && touched.passwordConfirmation && (
-                <div className="input-feedback">
-                  {errors.passwordConfirmation}
-                </div>
-              )}
-              <Field
+              <InputFieldHeader>
+                <Label htmlFor="passwordConfirmation">
+                  Password confirmation
+                </Label>
+                {errors.passwordConfirmation &&
+                  touched.passwordConfirmation && (
+                    <FormError>{errors.passwordConfirmation}</FormError>
+                  )}
+              </InputFieldHeader>
+              <InputField
                 id="passwordConfirmation"
                 name="passwordConfirmation"
                 placeholder="Enter your password again"
@@ -112,13 +118,13 @@ const Signup = ({ setLoggedIn }) => {
                 <Button type="submit" disabled={isSubmitting}>
                   Signup
                 </Button>
-                {error && <div className="input-feedback">{error}</div>}
+                {error && <FormError>{error}</FormError>}
               </div>
             </form>
           );
         }}
       </Formik>
-    </div>
+    </FormContainer>
   );
 };
 

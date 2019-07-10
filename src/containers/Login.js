@@ -1,10 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { apiRequest } from '../utils/helpers';
 import { authContext } from '../contexts/AuthContext';
-import Button from '../components/Button';
+import {
+  Button,
+  FormContainer,
+  FormError,
+  Heading,
+  InputField,
+  InputFieldHeader,
+  Label
+} from '../components';
 const { REACT_APP_LOG_IN } = process.env;
 
 const Login = ({ setLoggedIn }) => {
@@ -36,18 +44,18 @@ const Login = ({ setLoggedIn }) => {
   };
 
   return (
-    <div className="app">
-      <h1>LOGIN</h1>
+    <FormContainer>
+      <Heading>LOGIN</Heading>
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={loginHandler}
         validationSchema={Yup.object().shape({
           email: Yup.string()
-            .email('This is not an valid email.')
-            .required('No email provided.'),
+            .email('This is not an valid email')
+            .required('No email provided'),
           password: Yup.string()
-            .required('No password provided.')
-            .min(3, 'Password is too short - should be 3 chars minimum.')
+            .required('No password provided')
+            .min(3, 'Password needs 3 or more chars')
         })}
       >
         {props => {
@@ -55,18 +63,13 @@ const Login = ({ setLoggedIn }) => {
 
           return (
             <form onSubmit={handleSubmit}>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <label htmlFor="email">Email</label>
+              <InputFieldHeader>
+                <Label htmlFor="email">Email</Label>
                 {errors.email && touched.email && (
-                  <span className="input-feedback">{errors.email}</span>
+                  <FormError>{errors.email}</FormError>
                 )}
-              </div>
-              <Field
+              </InputFieldHeader>
+              <InputField
                 id="email"
                 name="email"
                 placeholder="Enter your email"
@@ -76,18 +79,13 @@ const Login = ({ setLoggedIn }) => {
                     : 'text-input'
                 }
               />
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <label htmlFor="password">Password</label>
+              <InputFieldHeader>
+                <Label htmlFor="password">Password</Label>
                 {errors.password && touched.password && (
-                  <span className="input-feedback">{errors.password}</span>
+                  <FormError>{errors.password}</FormError>
                 )}
-              </div>
-              <Field
+              </InputFieldHeader>
+              <InputField
                 id="password"
                 name="password"
                 placeholder="Enter your password"
@@ -99,15 +97,13 @@ const Login = ({ setLoggedIn }) => {
                 }
               />
 
-              <div className="buttonWrapper">
-                <Button disabled={isSubmitting}>Login</Button>
-                {error && <div className="input-feedback">{error}</div>}
-              </div>
+              <Button disabled={isSubmitting}>Login</Button>
+              {error && <FormError>{error}</FormError>}
             </form>
           );
         }}
       </Formik>
-    </div>
+    </FormContainer>
   );
 };
 

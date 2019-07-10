@@ -1,0 +1,10 @@
+import styled from 'styled-components';
+
+const FormContainer = styled.div`
+  display: flex;
+  text-align: center;
+  flex-flow: column wrap;
+  margin: 0 10%;
+`;
+
+export default FormContainer;

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
+  display: block;
   max-width: 150px;
-  margin: 20px auto;
-  display: inline-block;
+  margin: 2rem auto;
   padding: 12px 20px;
   border-style: none;
   border-radius: 5px;
