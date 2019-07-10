@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useRoutes, navigate } from 'hookrouter';
 
 import { Homepage, Login, NotFound, Signup } from './containers';
 import AuthContextProvider from './contexts/AuthContext';
 import ApiService from './utils/ApiService';
 import { Header, Link, RootContainer } from './components';
+import { authContext } from './contexts/AuthContext';
 
 const client = new ApiService();
 
@@ -32,6 +33,11 @@ const App = () => {
     }
   };
 
+  const logoutHandler = () => {
+    window.localStorage.clear();
+    setLoggedIn(false);
+  };
+
   const routeResult = useRoutes(routes);
 
   return (
@@ -45,7 +51,14 @@ const App = () => {
               <Link href="/signup">Signup</Link>
             </>
           )}
-          {isLoggedIn && <Link href="/dashboard">Dashboard</Link>}
+          {isLoggedIn && (
+            <>
+              <Link href="/" onClick={logoutHandler}>
+                Logout
+              </Link>
+              <Link href="/dashboard">Dashboard</Link>
+            </>
+          )}
         </Header>
         {routeResult || <NotFound />}
       </RootContainer>
