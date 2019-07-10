@@ -1,11 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { useRoutes, navigate } from 'hookrouter';
 
-import { Homepage, Login, NotFound, Signup } from './containers';
+import { Dashboard, Homepage, Login, NotFound, Signup } from './containers';
 import AuthContextProvider from './contexts/AuthContext';
 import ApiService from './utils/ApiService';
 import { Header, Link, RootContainer } from './components';
-import { authContext } from './contexts/AuthContext';
 
 const client = new ApiService();
 
@@ -29,7 +28,7 @@ const App = () => {
       );
     },
     '/dashboard': () => {
-      return !isLoggedIn ? navigate('/') : <h1>Dashboard</h1>;
+      return !isLoggedIn ? navigate('/') : <Dashboard />;
     }
   };
 
