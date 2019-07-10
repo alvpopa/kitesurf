@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Header = styled.header`
-  background-color: yellow;
+  background-image: linear-gradient(to top left, gray, orange);
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
