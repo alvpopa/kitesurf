@@ -1,5 +1,6 @@
+import Homepage from './Homepage';
 import Login from './Login';
-import Signup from './Signup';
 import NotFound from './NotFound';
+import Signup from './Signup';
 
-export { Login, NotFound, Signup };
+export { Homepage, Login, NotFound, Signup };

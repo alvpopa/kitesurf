@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRoutes, navigate } from 'hookrouter';
 
-import { Login, NotFound, Signup } from './containers';
+import { Homepage, Login, NotFound, Signup } from './containers';
 import AuthContextProvider from './contexts/AuthContext';
 import ApiService from './utils/ApiService';
 import { Header, Link, RootContainer } from './components';
@@ -12,11 +12,7 @@ const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(client.isLoggedIn());
 
   const routes = {
-    '/': () => (
-      <RootContainer>
-        <h1>Homepage</h1>
-      </RootContainer>
-    ),
+    '/': () => <Homepage />,
     '/login': () => {
       return isLoggedIn ? (
         navigate('/dashboard')

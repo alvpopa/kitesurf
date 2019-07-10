@@ -1,3 +1,4 @@
+import Background from './Background';
 import Button from './Button';
 import FormContainer from './FormContainer';
 import FormError from './FormError';
@@ -10,6 +11,7 @@ import Link from './Link';
 import RootContainer from './RootContainer';
 
 export {
+  Background,
   Button,
   FormContainer,
   FormError,
