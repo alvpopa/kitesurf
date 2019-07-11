@@ -34,7 +34,7 @@ const Popup = ({ marker, setIsPopupOpen, setApiError, setSpots }) => {
 
   const isDisabled = name ? true : false;
 
-  const loginHandler = async (values, { setSubmitting }) => {
+  const addNewSpot = async (values, { setSubmitting }) => {
     const bodyParams = { ...values, latitude, longitude };
     const resp = await apiRequest(
       REACT_APP_ADD_SPOT,
@@ -60,7 +60,7 @@ const Popup = ({ marker, setIsPopupOpen, setApiError, setSpots }) => {
       <Fieldset disabled={isDisabled}>
         <Formik
           initialValues={{ name, country, whenToGo, windProbability }}
-          onSubmit={loginHandler}
+          onSubmit={addNewSpot}
           enableReinitialize
           validationSchema={Yup.object().shape({
             name: Yup.string().required('required'),
