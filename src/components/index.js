@@ -1,5 +1,6 @@
 import Background from './Background';
 import Button from './Button';
+import Fieldset from './Fieldset';
 import FormContainer from './FormContainer';
 import FormError from './FormError';
 import Header from './Header';
@@ -8,11 +9,14 @@ import InputField from './InputField';
 import InputFieldHeader from './InputFieldHeader';
 import Label from './Label';
 import Link from './Link';
+import PopupContainer from './PopupContainer';
 import RootContainer from './RootContainer';
+import Select from './Select';
 
 export {
   Background,
   Button,
+  Fieldset,
   FormContainer,
   FormError,
   Header,
@@ -21,5 +25,7 @@ export {
   InputFieldHeader,
   Label,
   Link,
-  RootContainer
+  PopupContainer,
+  RootContainer,
+  Select
 };

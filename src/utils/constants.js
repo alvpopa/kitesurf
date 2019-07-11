@@ -17,3 +17,18 @@ export const redIcon = new L.Icon({
   iconAnchor: [12, 41],
   popupAnchor: [1, -34]
 });
+
+export const calendarMonths = [
+  { value: 'JANUARY', label: 'January' },
+  { value: 'FEBRUARY', label: 'February' },
+  { value: 'MARCH', label: 'March' },
+  { value: 'APRIL', label: 'April' },
+  { value: 'MAY', label: 'May' },
+  { value: 'JUNE', label: 'June' },
+  { value: 'JULY', label: 'July' },
+  { value: 'AUGUST', label: 'August' },
+  { value: 'SEPTEMBER', label: 'September' },
+  { value: 'OCTOBER', label: 'October' },
+  { value: 'NOVEMBER', label: 'November' },
+  { value: 'DECEMBER', label: 'December' }
+];

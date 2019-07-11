@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
-  display: block;
+  display: ${props => (props.scaled ? 'inline-block' : 'block')};
   max-width: 150px;
-  margin: 2rem auto;
+  margin: ${props => (props.scaled ? '0 auto' : '2rem auto')};
   padding: 12px 20px;
   border-style: none;
   border-radius: 5px;
@@ -16,6 +16,7 @@ const Button = styled.button`
   outline: none;
   -webkit-appearance: none;
   disabled: ${props => (props.isSubmitting ? true : false)};
+  transform: scale(${props => (props.scaled ? 0.5 : 1)});
 
   :disabled {
     opacity: 0.5;

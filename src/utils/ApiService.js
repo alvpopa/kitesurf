@@ -16,3 +16,5 @@ export default class ApiService {
     return !!this.token;
   };
 }
+
+//TODO: move entire api logic here
