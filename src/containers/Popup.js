@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -16,23 +16,51 @@ import {
 import { authContext } from '../contexts/AuthContext';
 import { apiRequest } from '../utils/helpers';
 import { calendarMonths } from '../utils/constants';
-const { REACT_APP_ADD_SPOT } = process.env;
+const {
+  REACT_APP_ADD_SPOT,
+  REACT_APP_ADD_FAVORITE_SPOT,
+  REACT_APP_REMOVE_FAVORITE_SPOT
+} = process.env;
 
 const Popup = ({ marker, setIsPopupOpen, setApiError, setSpots }) => {
   const {
+    id = '',
     country = '',
     latitude = '',
     longitude = '',
     name = '',
     whenToGo = '',
-    windProbability = ''
+    windProbability = '',
+    isFavorite = ''
   } = marker;
 
   const {
     auth: { token }
   } = useContext(authContext);
 
+  const [favorite, setFavorite] = useState(isFavorite);
+
   const isDisabled = name ? true : false;
+
+  const toggleFavorite = async event => {
+    const bodyParams = { spotId: id };
+    const apiMethod = event.currentTarget.className.includes('fas')
+      ? REACT_APP_REMOVE_FAVORITE_SPOT
+      : REACT_APP_ADD_FAVORITE_SPOT;
+
+    const resp = await apiRequest(apiMethod, 'POST', bodyParams, token);
+
+    const { error } = resp;
+
+    if (error) {
+      setApiError(error.message);
+      return;
+    } else {
+      const spot = { ...marker, isFavorite: !favorite };
+      setSpots(spots => [...spots, spot]);
+      setFavorite(favorite => !favorite);
+    }
+  };
 
   const addNewSpot = async (values, { setSubmitting }) => {
     const bodyParams = { ...values, latitude, longitude };
@@ -85,6 +113,11 @@ const Popup = ({ marker, setIsPopupOpen, setApiError, setSpots }) => {
 
             return (
               <form onSubmit={handleSubmit}>
+                <i
+                  onClick={toggleFavorite}
+                  className={favorite ? 'fas fa-heart' : 'far fa-heart'}
+                />
+
                 <InputFieldHeader>
                   <Label htmlFor="email">Name</Label>
                   {errors.name && touched.name && (
