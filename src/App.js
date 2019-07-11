@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useRoutes, navigate } from 'hookrouter';
 
 import { Dashboard, Homepage, Login, NotFound, Signup } from './containers';
