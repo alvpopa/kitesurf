@@ -21,6 +21,15 @@ const Map = () => {
     auth: { token }
   } = useContext(authContext);
 
+  console.log('ceva');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setApiError('');
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [apiError]);
+
   useEffect(() => {
     const addSpotOnMap = e => {
       const { lat: latitude, lng: longitude } = e.latlng;
@@ -60,7 +69,6 @@ const Map = () => {
     getSpotsFromApi();
   }, [token]);
 
-  //get current map reference
   const layerRef = useRef(null);
   useEffect(() => {
     layerRef.current = L.layerGroup().addTo(mapRef.current);
@@ -76,7 +84,6 @@ const Map = () => {
         .addTo(layerRef.current)
         .on('click', event => {
           event.originalEvent.preventDefault();
-          setCurrentMarker(isPopupOpen ? { latitude, longitude } : { ...spot });
           setIsPopupOpen(isPopupOpen => !isPopupOpen);
         });
     });
@@ -92,6 +99,7 @@ const Map = () => {
           setSpots={setSpots}
           setApiError={setApiError}
           setIsPopupOpen={setIsPopupOpen}
+          layer={layerRef.current}
         />
       )}
     </>

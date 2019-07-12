@@ -23,14 +23,14 @@ const {
   REACT_APP_REMOVE_SPOT
 } = process.env;
 
-const Popup = ({ marker, setIsPopupOpen, setApiError, setSpots }) => {
+const Popup = ({ layer, marker, setIsPopupOpen, setApiError, setSpots }) => {
   const {
     id = '',
     country = '',
     latitude = '',
     longitude = '',
     name = '',
-    whenToGo = '',
+    whenToGo = 'January',
     windProbability = '',
     isFavorite = '',
     isPersonal = ''
@@ -85,6 +85,7 @@ const Popup = ({ marker, setIsPopupOpen, setApiError, setSpots }) => {
     } else {
       setSpots(spots => spots.filter(spot => spot.id !== result));
       setIsPopupOpen(false);
+      layer.clearLayers();
     }
   };
 
