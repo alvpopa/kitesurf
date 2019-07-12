@@ -21,8 +21,6 @@ const Map = () => {
     auth: { token }
   } = useContext(authContext);
 
-  console.log('ceva');
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setApiError('');
@@ -46,6 +44,7 @@ const Map = () => {
     mapRef.current = L.map('map', {
       center: [25, 25],
       zoom: 2,
+      worldCopyJump: true,
       layers: [
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
           attribution:
@@ -84,6 +83,7 @@ const Map = () => {
         .addTo(layerRef.current)
         .on('click', event => {
           event.originalEvent.preventDefault();
+          setCurrentMarker(spot);
           setIsPopupOpen(isPopupOpen => !isPopupOpen);
         });
     });
