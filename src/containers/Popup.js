@@ -19,7 +19,8 @@ import { calendarMonths } from '../utils/constants';
 const {
   REACT_APP_ADD_SPOT,
   REACT_APP_ADD_FAVORITE_SPOT,
-  REACT_APP_REMOVE_FAVORITE_SPOT
+  REACT_APP_REMOVE_FAVORITE_SPOT,
+  REACT_APP_REMOVE_SPOT
 } = process.env;
 
 const Popup = ({ marker, setIsPopupOpen, setApiError, setSpots }) => {
@@ -31,7 +32,8 @@ const Popup = ({ marker, setIsPopupOpen, setApiError, setSpots }) => {
     name = '',
     whenToGo = '',
     windProbability = '',
-    isFavorite = ''
+    isFavorite = '',
+    isPersonal = ''
   } = marker;
 
   const {
@@ -50,15 +52,39 @@ const Popup = ({ marker, setIsPopupOpen, setApiError, setSpots }) => {
 
     const resp = await apiRequest(apiMethod, 'POST', bodyParams, token);
 
-    const { error } = resp;
+    const { error, result } = resp;
 
     if (error) {
       setApiError(error.message);
       return;
     } else {
       const spot = { ...marker, isFavorite: !favorite };
-      setSpots(spots => [...spots, spot]);
+      setSpots(spots => {
+        const filteredSpots = spots.filter(spot => spot.id !== result);
+        return [...filteredSpots, spot];
+      });
       setFavorite(favorite => !favorite);
+    }
+  };
+
+  const deleteSpot = async () => {
+    const bodyParams = { spotId: id };
+
+    const resp = await apiRequest(
+      REACT_APP_REMOVE_SPOT,
+      'POST',
+      bodyParams,
+      token
+    );
+
+    const { error, result } = resp;
+
+    if (error) {
+      setApiError(error.message);
+      return;
+    } else {
+      setSpots(spots => spots.filter(spot => spot.id !== result));
+      setIsPopupOpen(false);
     }
   };
 
@@ -79,7 +105,11 @@ const Popup = ({ marker, setIsPopupOpen, setApiError, setSpots }) => {
       return;
     } else {
       const spot = { ...result };
-      setSpots(spots => [...spots, spot]);
+      setSpots(spots => {
+        const newSpots = [...spots, spot];
+        return newSpots;
+      });
+      setIsPopupOpen(false);
     }
   };
 
@@ -117,6 +147,9 @@ const Popup = ({ marker, setIsPopupOpen, setApiError, setSpots }) => {
                   onClick={toggleFavorite}
                   className={favorite ? 'fas fa-heart' : 'far fa-heart'}
                 />
+                {isPersonal && (
+                  <i onClick={deleteSpot} className="fas fa-trash" />
+                )}
 
                 <InputFieldHeader>
                   <Label htmlFor="email">Name</Label>
