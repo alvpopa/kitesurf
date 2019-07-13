@@ -1,6 +1,8 @@
 import Background from './Background';
 import Button from './Button';
 import Fieldset from './Fieldset';
+import FilterContainer from './FilterContainer';
+import FilterTooltip from './FilterTooltip';
 import FormContainer from './FormContainer';
 import FormError from './FormError';
 import Header from './Header';
@@ -17,6 +19,8 @@ export {
   Background,
   Button,
   Fieldset,
+  FilterContainer,
+  FilterTooltip,
   FormContainer,
   FormError,
   Header,

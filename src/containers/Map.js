@@ -5,8 +5,8 @@ import L from 'leaflet';
 import { apiRequest } from '../utils/helpers';
 import { authContext } from '../contexts/AuthContext';
 import { redIcon, yellowIcon } from '../utils/constants';
-import { FormError } from '../components/';
-import { Popup } from './';
+import { FilterTooltip, FormError } from '../components/';
+import { Filter, Popup } from './';
 
 const { REACT_APP_GET_ALL_SPOTS } = process.env;
 
@@ -15,8 +15,12 @@ const Map = () => {
   const [spots, setSpots] = useState([]);
   const [apiError, setApiError] = useState('');
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [currentMarker, setCurrentMarker] = useState({});
-
+  const [filterValues, setFilterValues] = useState({
+    country: '',
+    windProbability: 0
+  });
   const {
     auth: { token }
   } = useContext(authContext);
@@ -91,6 +95,19 @@ const Map = () => {
 
   return (
     <>
+      {isFilterOpen && (
+        <Filter
+          filterValues={filterValues}
+          setFilterValues={setFilterValues}
+          setSpots={setSpots}
+          setApiError={setApiError}
+          layer={layerRef.current}
+        />
+      )}
+      <FilterTooltip
+        onClick={() => setIsFilterOpen(isFilterOpen => !isFilterOpen)}
+        className="fas fa-filter"
+      />
       <div id="map" />
       {apiError && <FormError>{apiError}</FormError>}
       {isPopupOpen && (
