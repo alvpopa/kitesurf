@@ -1,146 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+
 import { gridColumnDefs } from '../utils/constants';
+import { Input, Heading } from '../components/';
 
-const rows = [
-  {
-    id: '0dEGTxlKxh',
-    name: '27-Waam',
-    longitude: 66.8381,
-    latitude: 24.4681,
-    windProbability: 100,
-    country: 'India',
-    whenToGo: 'APRIL',
-    isFavorite: false
-  },
-  {
-    id: 's7uMTLEM6g',
-    name: '2nd Bay',
-    longitude: -9.78,
-    latitude: 31.48,
-    windProbability: 88,
-    country: 'Morocco',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  },
-  {
-    id: '6eADIckIJz',
-    name: "Adam's Bridge",
-    longitude: 79.5686,
-    latitude: 9.0869,
-    windProbability: 95,
-    country: 'Sri Lanka',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  },
-  {
-    id: 's7uMTLEM6g',
-    name: '2nd Bay',
-    longitude: -9.78,
-    latitude: 31.48,
-    windProbability: 88,
-    country: 'Morocco',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  },
-  {
-    id: 's7uMTLEM6g',
-    name: '2nd Bay',
-    longitude: -9.78,
-    latitude: 31.48,
-    windProbability: 88,
-    country: 'Morocco',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  },
-  {
-    id: 's7uMTLEM6g',
-    name: '2nd Bay',
-    longitude: -9.78,
-    latitude: 31.48,
-    windProbability: 88,
-    country: 'Morocco',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  },
-  {
-    id: 's7uMTLEM6g',
-    name: '2nd Bay',
-    longitude: -9.78,
-    latitude: 31.48,
-    windProbability: 88,
-    country: 'Morocco',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  },
-  {
-    id: 's7uMTLEM6g',
-    name: '2nd Bay',
-    longitude: -9.78,
-    latitude: 31.48,
-    windProbability: 88,
-    country: 'Morocco',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  },
-  {
-    id: 's7uMTLEM6g',
-    name: '2nd Bay',
-    longitude: -9.78,
-    latitude: 31.48,
-    windProbability: 88,
-    country: 'Morocco',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  },
-  {
-    id: 's7uMTLEM6g',
-    name: '2nd Bay',
-    longitude: -9.78,
-    latitude: 31.48,
-    windProbability: 88,
-    country: 'Morocco',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  },
-  {
-    id: 's7uMTLEM6g',
-    name: '2nd Bay',
-    longitude: -9.78,
-    latitude: 31.48,
-    windProbability: 88,
-    country: 'Morocco',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  },
-  {
-    id: 's7uMTLEM6g',
-    name: '2nd Bay',
-    longitude: -9.78,
-    latitude: 31.48,
-    windProbability: 88,
-    country: 'Morocco',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  },
-  {
-    id: 's7uMTLEM6g',
-    name: '2nd Bay',
-    longitude: -9.78,
-    latitude: 31.48,
-    windProbability: 88,
-    country: 'Morocco',
-    whenToGo: 'AUGUST',
-    isFavorite: false
-  }
-];
-
-const Grid = () => {
+const Grid = ({ spots }) => {
+  const [gridApi, setGridApi] = useState({});
   const onGridReady = ({ api }) => {
     api.sizeColumnsToFit();
+    setGridApi(api);
+  };
+
+  const handleOnChange = ({ target: { value } }) => {
+    gridApi.setQuickFilter(value);
   };
 
   return (
@@ -151,19 +26,29 @@ const Grid = () => {
         margin: '3rem auto'
       }}
     >
+      <Heading forFilter={true}>Filter</Heading>
+      <Input
+        id="filter"
+        name="filter"
+        placeholder="Filter..."
+        type="text"
+        className={'text-input'}
+        onChange={handleOnChange}
+      />
+
       <AgGridReact
         defaultColDef={{
           resizable: true,
-          sortable: true,
-          filter: true
+          sortable: true
         }}
         onGridReady={onGridReady}
         domLayout={'autoHeight'}
         animateRows={true}
         columnDefs={gridColumnDefs}
-        rowData={rows}
+        rowData={spots}
         pagination={true}
         paginationPageSize={10}
+        rowClassRules={{ 'favorite-spot': 'data.isFavorite' }}
       />
     </div>
   );

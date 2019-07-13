@@ -1,19 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-//import ReactDOM from 'react-dom';
+import React, { useEffect, useRef, useState } from 'react';
 
 import L from 'leaflet';
-import { apiRequest } from '../utils/helpers';
-import { authContext } from '../contexts/AuthContext';
 import { redIcon, yellowIcon } from '../utils/constants';
-import { FilterTooltip, FormError } from '../components/';
+import { FilterTooltip } from '../components/';
 import { Filter, Popup } from './';
 
-const { REACT_APP_GET_ALL_SPOTS } = process.env;
-
-const Map = () => {
+const Map = ({ spots, setSpots, setApiError }) => {
   const mapRef = useRef(null);
-  const [spots, setSpots] = useState([]);
-  const [apiError, setApiError] = useState('');
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [currentMarker, setCurrentMarker] = useState({});
@@ -21,16 +14,6 @@ const Map = () => {
     country: '',
     windProbability: 0
   });
-  const {
-    auth: { token }
-  } = useContext(authContext);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setApiError('');
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, [apiError]);
 
   useEffect(() => {
     const addSpotOnMap = e => {
@@ -57,20 +40,6 @@ const Map = () => {
       ]
     }).on('click', addSpotOnMap);
   }, []);
-
-  useEffect(() => {
-    const getSpotsFromApi = async () => {
-      const { error, result } = await apiRequest(
-        REACT_APP_GET_ALL_SPOTS,
-        'POST',
-        '',
-        token
-      );
-
-      error ? setApiError(error.message) : setSpots(result);
-    };
-    getSpotsFromApi();
-  }, [token]);
 
   const layerRef = useRef(null);
   useEffect(() => {
@@ -109,7 +78,6 @@ const Map = () => {
         className="fas fa-filter"
       />
       <div id="map" />
-      {apiError && <FormError>{apiError}</FormError>}
       {isPopupOpen && (
         <Popup
           marker={currentMarker}

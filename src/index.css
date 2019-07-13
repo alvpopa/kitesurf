@@ -42,3 +42,7 @@ body {
   width: 100%;
   height: 50vh;
 }
+
+.ag-theme-balham .favorite-spot {
+  background-color: yellow !important;
+}
