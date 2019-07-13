@@ -32,3 +32,30 @@ export const calendarMonths = [
   { value: 'NOVEMBER', label: 'November' },
   { value: 'DECEMBER', label: 'December' }
 ];
+
+export const gridColumnDefs = [
+  {
+    headerName: 'Name',
+    field: 'name'
+  },
+  {
+    headerName: 'Country',
+    field: 'country'
+  },
+  {
+    headerName: 'Latitude',
+    field: 'latitude'
+  },
+  {
+    headerName: 'Longitude',
+    field: 'longitude'
+  },
+  {
+    headerName: 'Wind probability',
+    field: 'windProbability'
+  },
+  {
+    headerName: 'When to go',
+    field: 'whenToGo'
+  }
+];

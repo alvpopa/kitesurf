@@ -1,8 +1,14 @@
 import React from 'react';
-import { Map } from './';
+
+import { Map, Grid } from './';
 
 const Dashboard = () => {
-  return <Map />;
+  return (
+    <>
+      <Map />
+      <Grid />
+    </>
+  );
 };
 
 export default Dashboard;

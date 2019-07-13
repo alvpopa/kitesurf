@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ag-grid-community": "^21.0.1",
+    "ag-grid-react": "^21.0.1",
     "formik": "^1.5.7",
     "hookrouter": "^1.2.3",
     "leaflet": "^1.5.1",
