@@ -17,7 +17,8 @@ const Filter = ({
   layer,
   setFilterValues,
   setApiError,
-  setSpots
+  setSpots,
+  setIsFilterOpen
 }) => {
   const { country = '', windProbability = 0 } = filterValues;
 
@@ -48,8 +49,9 @@ const Filter = ({
       setApiError(`No spots with filters ${JSON.stringify(bodyParams)} found.`);
     } else {
       layer.clearLayers();
-      setSpots(result);
+      setSpots([...result]);
       setFilterValues({ ...values });
+      setIsFilterOpen(isFilterOpen => !isFilterOpen);
     }
   };
 
@@ -100,7 +102,6 @@ const Filter = ({
                 name="windProbability"
                 placeholder="Enter wind probability"
                 type="number"
-                applyPercentage={true}
                 className={
                   errors.windProbability && touched.windProbability
                     ? 'text-input error'

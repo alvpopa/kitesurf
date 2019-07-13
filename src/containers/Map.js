@@ -76,6 +76,7 @@ const Map = ({ client, spots, setSpots, setApiError }) => {
           setFilterValues={setFilterValues}
           setSpots={setSpots}
           setApiError={setApiError}
+          setIsFilterOpen={setIsFilterOpen}
           layer={layerRef.current}
           client={client}
         />

@@ -8,7 +8,7 @@ import FormContainer from './FormContainer';
 import FormError from './FormError';
 import Header from './Header';
 import Heading from './Heading';
-import I from './I';
+import Icon from './Icon';
 import Input from './Input';
 import InputField from './InputField';
 import InputFieldHeader from './InputFieldHeader';
@@ -30,7 +30,7 @@ export {
   FormError,
   Header,
   Heading,
-  I,
+  Icon,
   Input,
   InputField,
   InputFieldHeader,

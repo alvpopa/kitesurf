@@ -3,11 +3,10 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import {
-  Button,
   Fieldset,
   Footer,
   FormError,
-  I,
+  Icon,
   InputField,
   InputFieldHeader,
   Label,
@@ -114,7 +113,6 @@ const Popup = ({
               values,
               touched,
               errors,
-              isSubmitting,
               handleSubmit
             } = props;
 
@@ -128,18 +126,18 @@ const Popup = ({
                   }}
                 >
                   {!isDisabled && (
-                    <I onClick={handleSubmit} className="fas fa-plus-circle">
+                    <Icon onClick={handleSubmit} className="fas fa-plus-circle">
                       add spot
-                    </I>
+                    </Icon>
                   )}
                   {isPersonal && (
-                    <I
+                    <Icon
                       onClick={deleteSpot}
                       className="fas fa-trash"
                       isDelete={true}
                     />
                   )}
-                  <I
+                  <Icon
                     isClose={true}
                     onClick={() => setIsPopupOpen(isp => !isp)}
                     className="fas fa-times-circle"
