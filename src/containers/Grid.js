@@ -35,17 +35,120 @@ const rows = [
     country: 'Sri Lanka',
     whenToGo: 'AUGUST',
     isFavorite: false
+  },
+  {
+    id: 's7uMTLEM6g',
+    name: '2nd Bay',
+    longitude: -9.78,
+    latitude: 31.48,
+    windProbability: 88,
+    country: 'Morocco',
+    whenToGo: 'AUGUST',
+    isFavorite: false
+  },
+  {
+    id: 's7uMTLEM6g',
+    name: '2nd Bay',
+    longitude: -9.78,
+    latitude: 31.48,
+    windProbability: 88,
+    country: 'Morocco',
+    whenToGo: 'AUGUST',
+    isFavorite: false
+  },
+  {
+    id: 's7uMTLEM6g',
+    name: '2nd Bay',
+    longitude: -9.78,
+    latitude: 31.48,
+    windProbability: 88,
+    country: 'Morocco',
+    whenToGo: 'AUGUST',
+    isFavorite: false
+  },
+  {
+    id: 's7uMTLEM6g',
+    name: '2nd Bay',
+    longitude: -9.78,
+    latitude: 31.48,
+    windProbability: 88,
+    country: 'Morocco',
+    whenToGo: 'AUGUST',
+    isFavorite: false
+  },
+  {
+    id: 's7uMTLEM6g',
+    name: '2nd Bay',
+    longitude: -9.78,
+    latitude: 31.48,
+    windProbability: 88,
+    country: 'Morocco',
+    whenToGo: 'AUGUST',
+    isFavorite: false
+  },
+  {
+    id: 's7uMTLEM6g',
+    name: '2nd Bay',
+    longitude: -9.78,
+    latitude: 31.48,
+    windProbability: 88,
+    country: 'Morocco',
+    whenToGo: 'AUGUST',
+    isFavorite: false
+  },
+  {
+    id: 's7uMTLEM6g',
+    name: '2nd Bay',
+    longitude: -9.78,
+    latitude: 31.48,
+    windProbability: 88,
+    country: 'Morocco',
+    whenToGo: 'AUGUST',
+    isFavorite: false
+  },
+  {
+    id: 's7uMTLEM6g',
+    name: '2nd Bay',
+    longitude: -9.78,
+    latitude: 31.48,
+    windProbability: 88,
+    country: 'Morocco',
+    whenToGo: 'AUGUST',
+    isFavorite: false
+  },
+  {
+    id: 's7uMTLEM6g',
+    name: '2nd Bay',
+    longitude: -9.78,
+    latitude: 31.48,
+    windProbability: 88,
+    country: 'Morocco',
+    whenToGo: 'AUGUST',
+    isFavorite: false
+  },
+  {
+    id: 's7uMTLEM6g',
+    name: '2nd Bay',
+    longitude: -9.78,
+    latitude: 31.48,
+    windProbability: 88,
+    country: 'Morocco',
+    whenToGo: 'AUGUST',
+    isFavorite: false
   }
 ];
 
 const Grid = () => {
+  const onGridReady = ({ api }) => {
+    api.sizeColumnsToFit();
+  };
+
   return (
     <div
       className="ag-theme-balham"
       style={{
-        height: '500px',
         width: '100%',
-        margin: '0 auto'
+        margin: '3rem auto'
       }}
     >
       <AgGridReact
@@ -54,9 +157,13 @@ const Grid = () => {
           sortable: true,
           filter: true
         }}
+        onGridReady={onGridReady}
+        domLayout={'autoHeight'}
         animateRows={true}
         columnDefs={gridColumnDefs}
         rowData={rows}
+        pagination={true}
+        paginationPageSize={10}
       />
     </div>
   );

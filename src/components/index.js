@@ -5,7 +5,6 @@ import FilterContainer from './FilterContainer';
 import FilterTooltip from './FilterTooltip';
 import FormContainer from './FormContainer';
 import FormError from './FormError';
-import GridContainer from './GridContainer';
 import Header from './Header';
 import Heading from './Heading';
 import InputField from './InputField';
@@ -24,7 +23,6 @@ export {
   FilterTooltip,
   FormContainer,
   FormError,
-  GridContainer,
   Header,
   Heading,
   InputField,
