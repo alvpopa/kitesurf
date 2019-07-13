@@ -17,14 +17,14 @@ const App = () => {
       return isLoggedIn ? (
         navigate('/dashboard')
       ) : (
-        <Login setLoggedIn={setLoggedIn} />
+        <Login client={client} setLoggedIn={setLoggedIn} />
       );
     },
     '/signup': () => {
       return isLoggedIn ? (
         navigate('/dashboard')
       ) : (
-        <Signup setLoggedIn={setLoggedIn} />
+        <Signup client={client} setLoggedIn={setLoggedIn} />
       );
     },
     '/dashboard': () => {

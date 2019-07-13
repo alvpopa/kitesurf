@@ -1,16 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Map, Grid } from './';
-import { apiRequest } from '../utils/helpers';
-import { authContext } from '../contexts/AuthContext';
-
 import { FormError } from '../components/';
+import ApiService from '../utils/ApiService';
 
-const { REACT_APP_GET_ALL_SPOTS } = process.env;
+const client = new ApiService();
 
 const Dashboard = () => {
   const [spots, setSpots] = useState([]);
   const [apiError, setApiError] = useState('');
+
+  useEffect(() => {
+    const getSpotsFromApi = async () => {
+      const { error, result } = await client.getSpots();
+      error ? setApiError(error.message) : setSpots(result);
+    };
+    getSpotsFromApi();
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -19,27 +25,14 @@ const Dashboard = () => {
     return () => clearTimeout(timer);
   }, [apiError]);
 
-  const {
-    auth: { token }
-  } = useContext(authContext);
-
-  useEffect(() => {
-    const getSpotsFromApi = async () => {
-      const { error, result } = await apiRequest(
-        REACT_APP_GET_ALL_SPOTS,
-        'POST',
-        '',
-        token
-      );
-
-      error ? setApiError(error.message) : setSpots(result);
-    };
-    getSpotsFromApi();
-  }, [token]);
-
   return (
     <>
-      <Map spots={spots} setSpots={setSpots} setApiError={setApiError} />
+      <Map
+        client={client}
+        spots={spots}
+        setApiError={setApiError}
+        setSpots={setSpots}
+      />
       {apiError && <FormError>{apiError}</FormError>}
       <Grid spots={spots} />
     </>

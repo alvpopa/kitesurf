@@ -39,7 +39,8 @@ const Grid = ({ spots }) => {
       <AgGridReact
         defaultColDef={{
           resizable: true,
-          sortable: true
+          sortable: true,
+          minWidth: 100
         }}
         onGridReady={onGridReady}
         domLayout={'autoHeight'}

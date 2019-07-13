@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -13,17 +13,16 @@ import {
   Select
 } from '../components';
 
-import { authContext } from '../contexts/AuthContext';
-import { apiRequest } from '../utils/helpers';
 import { calendarMonths } from '../utils/constants';
-const {
-  REACT_APP_ADD_SPOT,
-  REACT_APP_ADD_FAVORITE_SPOT,
-  REACT_APP_REMOVE_FAVORITE_SPOT,
-  REACT_APP_REMOVE_SPOT
-} = process.env;
 
-const Popup = ({ layer, marker, setIsPopupOpen, setApiError, setSpots }) => {
+const Popup = ({
+  client,
+  layer,
+  marker,
+  setIsPopupOpen,
+  setApiError,
+  setSpots
+}) => {
   const {
     id = '',
     country = '',
@@ -36,23 +35,13 @@ const Popup = ({ layer, marker, setIsPopupOpen, setApiError, setSpots }) => {
     isPersonal = ''
   } = marker;
 
-  const {
-    auth: { token }
-  } = useContext(authContext);
-
   const [favorite, setFavorite] = useState(isFavorite);
 
   const isDisabled = name ? true : false;
 
   const toggleFavorite = async event => {
     const bodyParams = { spotId: id };
-    const apiMethod = event.currentTarget.className.includes('fas')
-      ? REACT_APP_REMOVE_FAVORITE_SPOT
-      : REACT_APP_ADD_FAVORITE_SPOT;
-
-    const resp = await apiRequest(apiMethod, 'POST', bodyParams, token);
-
-    const { error, result } = resp;
+    const { error, result } = await client.toggleFavorite(event, bodyParams);
 
     if (error) {
       setApiError(error.message);
@@ -69,15 +58,7 @@ const Popup = ({ layer, marker, setIsPopupOpen, setApiError, setSpots }) => {
 
   const deleteSpot = async () => {
     const bodyParams = { spotId: id };
-
-    const resp = await apiRequest(
-      REACT_APP_REMOVE_SPOT,
-      'POST',
-      bodyParams,
-      token
-    );
-
-    const { error, result } = resp;
+    const { error, result } = await client.deleteSpot(bodyParams);
 
     if (error) {
       setApiError(error.message);
@@ -91,15 +72,8 @@ const Popup = ({ layer, marker, setIsPopupOpen, setApiError, setSpots }) => {
 
   const addNewSpot = async (values, { setSubmitting }) => {
     const bodyParams = { ...values, latitude, longitude };
-    const resp = await apiRequest(
-      REACT_APP_ADD_SPOT,
-      'POST',
-      bodyParams,
-      token
-    );
+    const { error, result } = await client.addSpot(bodyParams);
     setSubmitting(false);
-
-    const { error, result } = resp;
 
     if (error) {
       setApiError(error.message);

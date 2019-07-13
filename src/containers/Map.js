@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-
 import L from 'leaflet';
+
 import { redIcon, yellowIcon } from '../utils/constants';
 import { FilterTooltip } from '../components/';
 import { Filter, Popup } from './';
 
-const Map = ({ spots, setSpots, setApiError }) => {
+const Map = ({ client, spots, setSpots, setApiError }) => {
   const mapRef = useRef(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -64,6 +64,10 @@ const Map = ({ spots, setSpots, setApiError }) => {
 
   return (
     <>
+      <FilterTooltip
+        onClick={() => setIsFilterOpen(isFilterOpen => !isFilterOpen)}
+        className="fas fa-filter"
+      />
       {isFilterOpen && (
         <Filter
           filterValues={filterValues}
@@ -71,12 +75,9 @@ const Map = ({ spots, setSpots, setApiError }) => {
           setSpots={setSpots}
           setApiError={setApiError}
           layer={layerRef.current}
+          client={client}
         />
       )}
-      <FilterTooltip
-        onClick={() => setIsFilterOpen(isFilterOpen => !isFilterOpen)}
-        className="fas fa-filter"
-      />
       <div id="map" />
       {isPopupOpen && (
         <Popup
@@ -85,6 +86,7 @@ const Map = ({ spots, setSpots, setApiError }) => {
           setApiError={setApiError}
           setIsPopupOpen={setIsPopupOpen}
           layer={layerRef.current}
+          client={client}
         />
       )}
     </>

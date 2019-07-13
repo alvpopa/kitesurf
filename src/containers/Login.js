@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { apiRequest } from '../utils/helpers';
 import { authContext } from '../contexts/AuthContext';
 import {
   Button,
@@ -13,9 +12,8 @@ import {
   InputFieldHeader,
   Label
 } from '../components';
-const { REACT_APP_LOG_IN } = process.env;
 
-const Login = ({ setLoggedIn }) => {
+const Login = ({ client, setLoggedIn }) => {
   const auth = useContext(authContext);
   const [error, setError] = useState('');
 
@@ -27,11 +25,8 @@ const Login = ({ setLoggedIn }) => {
   }, [error]);
 
   const loginHandler = async (values, { setSubmitting }) => {
-    const bodyParams = { ...values };
-    const resp = await apiRequest(REACT_APP_LOG_IN, 'POST', bodyParams);
+    const { error, result } = await client.logIn(values);
     setSubmitting(false);
-
-    const { error, result } = resp;
 
     if (error) {
       setError(error.message);

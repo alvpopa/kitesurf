@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { apiRequest } from '../utils/helpers';
 import { authContext } from '../contexts/AuthContext';
 import {
   Button,
@@ -14,24 +13,19 @@ import {
   Label
 } from '../components';
 
-const { REACT_APP_SIGN_UP } = process.env;
-
-const Signup = ({ setLoggedIn }) => {
+const Signup = ({ client, setLoggedIn }) => {
   const auth = useContext(authContext);
   const [error, setError] = useState('');
 
   const signupHandler = async (values, { setSubmitting }) => {
     const { passwordConfirmation, ...bodyParams } = values;
-    const resp = await apiRequest(REACT_APP_SIGN_UP, 'POST', bodyParams);
+    const { error, result } = await client.signUp(bodyParams);
     setSubmitting(false);
-
-    const { error, result } = resp;
 
     if (error) {
       return setError(error.message);
     } else {
-      const user = { ...result };
-      auth.setAuthStatus(user);
+      auth.setAuthStatus(result);
       setLoggedIn(true);
     }
   };

@@ -1,9 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-
-import { apiRequest } from '../utils/helpers';
-import { authContext } from '../contexts/AuthContext';
 
 import {
   Button,
@@ -14,12 +11,11 @@ import {
   Label
 } from '../components';
 
-const { REACT_APP_GET_ALL_SPOTS } = process.env;
-
 const Filter = ({
+  client,
   filterValues,
-  setFilterValues,
   layer,
+  setFilterValues,
   setApiError,
   setSpots
 }) => {
@@ -34,26 +30,17 @@ const Filter = ({
     return () => clearTimeout(timer);
   }, [error]);
 
-  const {
-    auth: { token }
-  } = useContext(authContext);
-
   const filterHandler = async (values, { setSubmitting }) => {
+    //if filters didn't change, spare an extra api call
     if (JSON.stringify(values) === JSON.stringify(filterValues)) {
       setSubmitting(false);
       return;
     }
 
     const bodyParams = { ...values };
-    const resp = await apiRequest(
-      REACT_APP_GET_ALL_SPOTS,
-      'POST',
-      bodyParams,
-      token
-    );
+    const { error, result } = await client.getSpots(bodyParams);
     setSubmitting(false);
 
-    const { error, result } = resp;
     if (error) {
       setApiError(error.message);
       return;
@@ -81,7 +68,7 @@ const Filter = ({
         })}
       >
         {props => {
-          const { touched, errors, isSubmitting, handleSubmit } = props;
+          const { errors, handleSubmit, isSubmitting, touched } = props;
 
           return (
             <form onSubmit={handleSubmit}>
