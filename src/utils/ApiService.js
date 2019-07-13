@@ -46,7 +46,7 @@ export default class ApiService {
   };
 
   toggleFavorite = async (event, bodyParams) => {
-    const apiMethod = event.currentTarget.className.includes('fas')
+    const apiMethod = event.currentTarget.innerHTML.includes('remove')
       ? REACT_APP_REMOVE_FAVORITE_SPOT
       : REACT_APP_ADD_FAVORITE_SPOT;
 

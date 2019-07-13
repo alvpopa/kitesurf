@@ -43,7 +43,7 @@ const App = () => {
     <AuthContextProvider client={client}>
       <RootContainer>
         <Header>
-          <Link href="/">Homepage</Link>
+          <Link href="/">Kite</Link>
           {!isLoggedIn && (
             <>
               <Link href="/login">Login</Link>
@@ -52,10 +52,11 @@ const App = () => {
           )}
           {isLoggedIn && (
             <>
-              <Link href="/" onClick={logoutHandler}>
-                Logout
-              </Link>
               <Link href="/dashboard">Dashboard</Link>
+              <Link href="#" onClick={logoutHandler}>
+                Logout
+                <i className="fas fa-user-circle" />
+              </Link>
             </>
           )}
         </Header>

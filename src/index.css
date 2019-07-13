@@ -43,6 +43,11 @@ body {
   height: 50vh;
 }
 
-.ag-theme-balham .favorite-spot {
+.ag-theme-bootstrap .favorite-spot {
   background-color: yellow !important;
+}
+
+.ag-theme-bootstrap .ag-header {
+  background-color: #d8d8d8 !important;
+  font-weight: 900 !important;
 }

@@ -66,8 +66,10 @@ const Map = ({ client, spots, setSpots, setApiError }) => {
     <>
       <FilterTooltip
         onClick={() => setIsFilterOpen(isFilterOpen => !isFilterOpen)}
-        className="fas fa-filter"
-      />
+        className="fas fa-sort-amount-down-alt"
+      >
+        Filters
+      </FilterTooltip>
       {isFilterOpen && (
         <Filter
           filterValues={filterValues}

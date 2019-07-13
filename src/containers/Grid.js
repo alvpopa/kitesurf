@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+import 'ag-grid-community/dist/styles/ag-theme-bootstrap.css';
 
 import { gridColumnDefs } from '../utils/constants';
 import { Input, Heading } from '../components/';
@@ -20,7 +20,7 @@ const Grid = ({ spots }) => {
 
   return (
     <div
-      className="ag-theme-balham"
+      className="ag-theme-bootstrap"
       style={{
         width: '100%',
         margin: '3rem auto'
@@ -40,7 +40,8 @@ const Grid = ({ spots }) => {
         defaultColDef={{
           resizable: true,
           sortable: true,
-          minWidth: 100
+          minWidth: 100,
+          unSortIcon: true
         }}
         onGridReady={onGridReady}
         domLayout={'autoHeight'}

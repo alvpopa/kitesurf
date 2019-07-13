@@ -7,10 +7,10 @@ import {
   Button,
   FormContainer,
   FormError,
-  Heading,
   InputField,
   InputFieldHeader,
-  Label
+  Label,
+  Logo
 } from '../components';
 
 const Login = ({ client, setLoggedIn }) => {
@@ -40,7 +40,7 @@ const Login = ({ client, setLoggedIn }) => {
 
   return (
     <FormContainer>
-      <Heading>LOGIN</Heading>
+      <Logo>Kite</Logo>
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={loginHandler}

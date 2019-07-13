@@ -5,7 +5,9 @@ import * as Yup from 'yup';
 import {
   Button,
   Fieldset,
+  Footer,
   FormError,
+  I,
   InputField,
   InputFieldHeader,
   Label,
@@ -118,14 +120,31 @@ const Popup = ({
 
             return (
               <form onSubmit={handleSubmit}>
-                <i
-                  onClick={toggleFavorite}
-                  className={favorite ? 'fas fa-heart' : 'far fa-heart'}
-                />
-                {isPersonal && (
-                  <i onClick={deleteSpot} className="fas fa-trash" />
-                )}
-
+                <div
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  {!isDisabled && (
+                    <I onClick={handleSubmit} className="fas fa-plus-circle">
+                      add spot
+                    </I>
+                  )}
+                  {isPersonal && (
+                    <I
+                      onClick={deleteSpot}
+                      className="fas fa-trash"
+                      isDelete={true}
+                    />
+                  )}
+                  <I
+                    isClose={true}
+                    onClick={() => setIsPopupOpen(isp => !isp)}
+                    className="fas fa-times-circle"
+                  />
+                </div>
                 <InputFieldHeader>
                   <Label htmlFor="email">Name</Label>
                   {errors.name && touched.name && (
@@ -135,7 +154,7 @@ const Popup = ({
                 <InputField
                   id="name"
                   name="name"
-                  placeholder="Enter a location name"
+                  placeholder="Spot name"
                   className={
                     errors.name && touched.name
                       ? 'text-input error'
@@ -151,7 +170,7 @@ const Popup = ({
                 <InputField
                   id="country"
                   name="country"
-                  placeholder="Enter your country"
+                  placeholder="Country name"
                   type="text"
                   className={
                     errors.country && touched.country
@@ -190,7 +209,7 @@ const Popup = ({
                 <InputField
                   id="windProbability"
                   name="windProbability"
-                  placeholder="Enter wind probability"
+                  placeholder="Wind probability"
                   type="number"
                   className={
                     errors.windProbability && touched.windProbability
@@ -198,20 +217,14 @@ const Popup = ({
                       : 'text-input'
                   }
                 />
-
-                {!isDisabled && (
-                  <Button scaled={true} disabled={isSubmitting}>
-                    Submit
-                  </Button>
-                )}
               </form>
             );
           }}
         </Formik>
       </Fieldset>
-      <Button onClick={() => setIsPopupOpen(isp => !isp)} scaled={true}>
-        Close
-      </Button>
+      <Footer isFavorite={favorite} onClick={toggleFavorite}>
+        {favorite ? '- remove from favorites' : '+ add to favorites'}
+      </Footer>
     </PopupContainer>
   );
 };

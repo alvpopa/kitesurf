@@ -14,6 +14,7 @@ const Button = styled.button`
   color: #fff;
   cursor: pointer;
   outline: none;
+  text-transform: uppercase;
   -webkit-appearance: none;
   disabled: ${props => (props.isSubmitting ? true : false)};
   transform: scale(${props => (props.scaled ? 0.5 : 1)});

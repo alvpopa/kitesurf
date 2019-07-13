@@ -4,10 +4,10 @@ const FilterContainer = styled.div`
   background-color: rgb(255, 255, 255, 0.9);
   padding: 0 1rem;
   width: 15rem;
-  height: 200px;
+  height: 12rem;
   position: absolute;
   top: 3rem;
-  right: 2rem;
+  right: 5rem;
   display: flex;
   text-align: center;
   flex-flow: column wrap;

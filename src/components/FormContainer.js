@@ -4,7 +4,7 @@ const FormContainer = styled.div`
   display: flex;
   text-align: center;
   flex-flow: column wrap;
-  margin: 0 10%;
+  margin: 0 20%;
 `;
 
 export default FormContainer;

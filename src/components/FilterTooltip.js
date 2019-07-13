@@ -5,9 +5,10 @@ const FilterTooltip = styled.i`
   text-align: center;
   align-self: flex-end;
   top: 3rem;
-  right: 0.5rem;
+  right: 1rem;
   z-index: 9999;
   cursor: pointer;
+  text-transform: uppercase;
 `;
 
 export default FilterTooltip;

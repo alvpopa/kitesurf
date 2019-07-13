@@ -100,6 +100,7 @@ const Filter = ({
                 name="windProbability"
                 placeholder="Enter wind probability"
                 type="number"
+                applyPercentage={true}
                 className={
                   errors.windProbability && touched.windProbability
                     ? 'text-input error'
@@ -108,7 +109,7 @@ const Filter = ({
               />
 
               <Button scaled={true} disabled={isSubmitting}>
-                Submit
+                Apply filter
               </Button>
             </form>
           );
